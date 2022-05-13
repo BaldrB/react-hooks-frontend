@@ -1,8 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import EmployeeService from '../services/EmployeeService'
 
-function AddEmployeeComponent() {
+function DeskPercoComponent() {
+
+    const [group, setGroups] = useState([])
+
+    const getAllGroup = useCallback(() => {
+        EmployeeService.getAllGroups().then((response) => {
+            setGroups(response.data)
+            console.log(response.data);
+        }).catch(error => {
+            console.log(error);
+        })
+
+    },[])
+
+    useEffect(() => {
+        getAllGroup();
+    }, [getAllGroup]);
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -11,8 +27,14 @@ function AddEmployeeComponent() {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const saveOrUpdateEmployee = (e) => {
+    const goToPage = (e) => {
         e.preventDefault();
+        var elem1 = document.getElementById("dateto");
+        var elem2 = document.getElementById("datedo");
+        var elem3 = document.getElementById("subId");
+        var body = "/" + encodeURIComponent(elem3.value) + "/" + encodeURIComponent(elem1.value) + "/"+encodeURIComponent(elem2.value);
+        // document.location.href = "/usergroup?" + body;
+        navigate('/usergroup' + body);
 
         const employee = { firstName, lastName, emailId }
 
@@ -27,11 +49,9 @@ function AddEmployeeComponent() {
             EmployeeService.createEmployee(employee).then((response) => {
                 console.log(response.data)
                 navigate('/employees');
-    
             }).catch(error => {
                 console.log(error)
             })
-
         }
     }
 
@@ -50,7 +70,7 @@ function AddEmployeeComponent() {
         if(id) {
             return <h2 className='text-center'> Update Employee</h2>
         }else{
-            return <h2 className='text-center'> Add Employee</h2>
+            return <h2 className='text-center'> Groupe</h2>
         }
     }
 
@@ -65,6 +85,15 @@ function AddEmployeeComponent() {
                         }
                         <div className='card-body'>
                             <from>
+                                <div className='form-group mb-2'>
+                                    <label for="date">Дата c :</label>
+                                    <input type="date" id="dateto" name="dateto"/>
+                                </div>
+                                <div className='form-group mb-2'>
+                                    <label for="date">Дата до: </label>
+                                    <input type="date" id="datedo" name="datedo"/>
+                                </div>
+
                                 <div className='form-group mb-2'>
                                     <label className='form-label'> First Name :</label>
                                     <input
@@ -100,9 +129,18 @@ function AddEmployeeComponent() {
                                         onChange={(e) => setEmailId(e.target.value)}
                                     ></input>
                                 </div>
+                                <div className='form-group mb-2'>
+                                    <select id="subId" name="subId" required>
+                                        <option value="0">select operator</option>
+                                        {group.map(gro => 
+                                        <option value={gro.id}>{gro.displayName}</option>
+                                        )
+                                        }
+                                    </select>
+                                </div>
 
-                                <button className='btn btn-success' onClick={(e) => saveOrUpdateEmployee(e)}>Sumbit</button>
-                                <Link to='/employees' className='btn btn-danger'> Cancel </Link>
+                                <button className='btn btn-success' onClick={(e) => goToPage(e)}>Поиск</button>
+                                <Link to='/groupder' className='btn btn-danger'> Поиск Not</Link>
                             </from>
                         </div>
                     </div>
@@ -112,4 +150,4 @@ function AddEmployeeComponent() {
     )
 }
 
-export default AddEmployeeComponent
+export default DeskPercoComponent
