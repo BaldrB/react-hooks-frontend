@@ -7,6 +7,14 @@ const AS_BASE_REST_API_URL = 'http://192.168.115.170:8091/api/v1/perco/as';
 const GROUP_BASE_REST_API_URL = 'http://192.168.115.170:8091/api/v1/perco/group';
 const PERCOV1_BASE_REST_API_URL = 'http://192.168.115.170:8091/api/v1/perco'
 
+// const DORAMA_BASE_REST_API_URL = 'http://192.168.115.170:8080/api/v1/dorama';
+// const TAGDORAMA_BASE_REST_API_URL = 'http://192.168.115.170:8080/api/v1/tagdorama';
+const DORAMA_BASE_REST_API_URL = 'https://doramajavareact.herokuapp.com/api/v1/dorama';
+const TAGDORAMA_BASE_REST_API_URL = 'https://doramajavareact.herokuapp.com/api/v1/tagdorama';
+
+
+
+
 class EmployeeService{
 
     getAllPerco(){
@@ -63,6 +71,18 @@ class EmployeeService{
 
     deleteSklad(skladId){
         return axios.delete(SKLAD_BASE_REST_API_URL + '/' + skladId);
+    }
+
+    createDorama(dorama){
+        return axios.post(DORAMA_BASE_REST_API_URL, dorama)
+    }
+
+    createTagdorama(tagdorama){
+        return axios.post(TAGDORAMA_BASE_REST_API_URL, tagdorama)
+    }
+
+    getAllDorama(){
+        return axios.get(DORAMA_BASE_REST_API_URL)
     }
 }
 

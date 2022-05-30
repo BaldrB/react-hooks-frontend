@@ -10,6 +10,9 @@ import ListSkladComponent from './components/ListSkladComponent';
 import AddSkladComponent from './components/AddSkladComponent';
 import DeskPercoComponent from './components/DeskPercoComponent';
 import ListGroupComponent from './components/ListGroupComponent';
+import AddDoramaComponent from './components/AddDoramaComponent';
+import AddTagdoramaComponent from './components/AddTagdoramaComponent';
+import ListDoramaComponent from './components/ListDoramaComponent';
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
             <Route path="/edit-sklad/:id" element={<AddSkladComponent />}></Route>
             <Route path="/group" element={<DeskPercoComponent />}></Route>
             <Route path="/usergroup/:subid/:dateto/:datedo" element={<ListGroupComponent />}></Route>
+            <Route path="/dorama" element={<AddDoramaComponent />}></Route>
+            <Route path="/tagdorama" element={<AddTagdoramaComponent />}></Route>
+            <Route path="/doramas" element={<ListDoramaComponent />}></Route>
           </Routes>
         </div>
         <FooterComponent />
