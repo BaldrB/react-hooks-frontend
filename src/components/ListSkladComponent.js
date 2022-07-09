@@ -32,6 +32,7 @@ const ListSkladComponent = () => {
         <div className='container'>
             <h2 className='text-center'> List Sklad </h2>
             <Link to = "/add-sklad" className='btn btn-primary mb-2'> Add PC</Link>
+            <a href='http://192.168.115.170:8080/users/export/excel' download className='btn btn-primary mb-2'>Click to download</a>
             <table className='table table-bordered table-striped'>
                 <thead>
                     <th> invent</th>

@@ -28,11 +28,11 @@ const ListGroupComponent = () => {
       <h2 className='text-center'> List Groupe </h2>
       <table className='table table-bordered table-striped'>
         <thead>
-          <th> idstaff</th>
-          <th> Date </th>
-          <th> Time </th>
-          <th> Employee Email Id </th>
-          <th> Areas </th>
+          <th> Perco Id</th>
+          <th> Perco data </th>
+          <th> Perco Time </th>
+          <th> Perco Time MAX </th>
+          <th> Perco Areas </th>
         </thead>
       </table>
       {employees.map(employee => {
@@ -45,12 +45,13 @@ const ListGroupComponent = () => {
           <tbody>
             {employee.staff.map(emp => {
               return (
-                <tr>
-                  <td> {emp.idStaff} </td>
-                  <td> {emp.date} </td>
-                  <td> {emp.time} </td>
-                  <td> {emp.areas} </td>
-                </tr>
+                <tr key={emp.id}>
+                <td> {emp.id} </td>
+                <td> {emp.date} </td>
+                <td> {emp.time} </td>
+                <td> {emp.timeMax} </td>
+                <td colspan="2" class="table-active"> {emp.areas} </td>
+            </tr>
               )
             })}
           </tbody>
