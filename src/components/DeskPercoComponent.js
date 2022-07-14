@@ -38,21 +38,21 @@ function DeskPercoComponent() {
 
         const employee = { firstName, lastName, emailId }
 
-        if (id) {
-            EmployeeService.updateEmployee(id, employee).then((response) => {
-                navigate('/employees');
-            }).catch(error => {
-                console.log(error);
-            })
+        // if (id) {
+        //     EmployeeService.updateEmployee(id, employee).then((response) => {
+        //         navigate('/employees');
+        //     }).catch(error => {
+        //         console.log(error);
+        //     })
 
-        } else {
-            EmployeeService.createEmployee(employee).then((response) => {
-                console.log(response.data)
-                navigate('/employees');
-            }).catch(error => {
-                console.log(error)
-            })
-        }
+        // } else {
+        //     EmployeeService.createEmployee(employee).then((response) => {
+        //         console.log(response.data)
+        //         navigate('/employees');
+        //     }).catch(error => {
+        //         console.log(error)
+        //     })
+        // }
     }
 
     useEffect(() => {
@@ -94,14 +94,14 @@ function DeskPercoComponent() {
                                     <input type="date" id="datedo" name="datedo" />
                                 </div>
                                 <div className='form-group mb-2'>
-                                <label>
-    Choose a browser from this list:
-    <input type="time" name="selected_time" list="time-list" />
-    </label>
+                                    <label>
+                                        Choose a browser from this list:
+                                        <input type="time" name="selected_time" list="time-list" />
+                                    </label>
                                     <datalist id="time-list">
-                                    <option value="08:00" label="Начало рабочего дня" />
-                                    <option value="12:00" label="Обед" />
-                                    <option value="17:00" label="Конец рабочего дня" />
+                                        <option value="08:00" label="Начало рабочего дня" />
+                                        <option value="12:00" label="Обед" />
+                                        <option value="17:00" label="Конец рабочего дня" />
                                     </datalist>
 
 
@@ -114,6 +114,24 @@ function DeskPercoComponent() {
                                         )
                                         }
                                     </select>
+                                </div>
+                                <div id="zatemnenie">
+                                    <div id="okno">
+                                        <h1>Всплывающее окошко!</h1>
+                                        <a href="#" class="close">Закрыть окно</a>
+                                    </div>
+                                </div>
+                                <a href="#zatemnenie">Вызвать всплывающее окно</a>
+                                <div>
+                                    <form method="POST" enctype="multipart/form-data" action="http://code.kupava.by:8080/upload">
+                                        <table>
+                                            <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+                                            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                                        </table>
+                                    </form>
+                                </div>
+                                <div>
+                                    <img src='http://code.kupava.by:8080/api/v1/files/files/children_of_the_lesser_god_739.jpg'></img>
                                 </div>
 
                                 <button className='btn btn-success' onClick={(e) => goToPage(e)}>Поиск</button>

@@ -35,6 +35,7 @@ function App() {
             <Route path="/dorama" element={<AddDoramaComponent />}></Route>
             <Route path="/tagdorama" element={<AddTagdoramaComponent />}></Route>
             <Route path="/doramas" element={<ListDoramaComponent />}></Route>
+            <Route path="/eddoramas/:id" element={<AddDoramaComponent />}></Route>
           </Routes>
         </div>
         <FooterComponent />

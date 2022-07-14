@@ -37,7 +37,7 @@ const ListDoramaComponent = () => {
                                 <tr key={sklad.id}>
                                     <td> {sklad.doramaName} </td>
                                     <td> {sklad.doramaDescript} </td>
-                                    <td> {sklad.doramaImg} </td>
+                                    <td> <img src={sklad.doramaImg}></img> </td>
                                     <td> {sklad.doramaCity} </td>
                                     <td>
                                      {sklad.doramaTag.map(emp => {

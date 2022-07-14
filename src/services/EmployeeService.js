@@ -12,6 +12,7 @@ const PERCOV1_BASE_REST_API_URL = 'http://192.168.115.170:8091/api/v1/perco'
 const DORAMA_BASE_REST_API_URL = 'https://doramajavareact.herokuapp.com/api/v1/dorama';
 const TAGDORAMA_BASE_REST_API_URL = 'https://doramajavareact.herokuapp.com/api/v1/tagdorama';
 const DOWLOAD_USERS = 'http://192.168.115.170:8080/users/export/excel';
+const UPLOAD_FILES = 'http://code.kupava.by:8080/upload';
 
 
 
@@ -83,6 +84,10 @@ class EmployeeService{
 
     getAllDorama(){
         return axios.get(DORAMA_BASE_REST_API_URL)
+    }
+
+    upload(data) {
+        return axios.post(UPLOAD_FILES, data);
     }
 }
 

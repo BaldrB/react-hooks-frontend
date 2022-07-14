@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import EmployeeService from '../services/EmployeeService'
+import EmployeeService from '../services/EmployeeService';
+import FormData from 'form-data';
+import axios from 'axios';
 
 function AddDoramaComponent() {
 
@@ -8,6 +10,7 @@ function AddDoramaComponent() {
     const [doramaDescript, setDoramaDescript] = useState('')
     const [doramaImg, setDoramaImg] = useState('')
     const [doramaCity, setDoramaCity] = useState('')
+    const [selectedFile, setSelectedFile] = useState(null)
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -17,17 +20,75 @@ function AddDoramaComponent() {
 
         const dorama = { doramaName, doramaDescript, doramaImg, doramaCity }
 
-            EmployeeService.createDorama(dorama).then((response) => {
-                console.log(response.data)
-                navigate('/dorama');
-    
-            }).catch(error => {
-                console.log(error)
-            })
+        EmployeeService.createDorama(dorama).then((response) => {
+            console.log(response.data)
+            navigate('/dorama');
+
+        }).catch(error => {
+            console.log(error)
+        })
 
     }
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        //console.log(selectedFile)
+        axios.post('http://code.kupava.by:8080/upload', formData, { // receive two parameter endpoint url ,form data 
+        })
+        .then(res => { // then print response status
+            console.warn(res);
+            let data = JSON.parse(res.request.response);
+            console.log(data['message']);
+            setDoramaImg(data['message']);
+        })
+        // try {
+        //     const response = await axios({
+        //         method: "post",
+        //         url: 'http://code.kupava.by:8080/upload',
+        //         data: formData,
+        //         headers: { "Content-Type": "multipart/form-data" },
+        //     });
+        // } catch (error) {
+        //     console.log(error)
+        // }
+    };
+
+    const handleFileSelect = (event) => {
+        event.preventDefault();
+        console.log("file selected")
+        setSelectedFile(event.target.files[0])
+    };
+
+    const onFileChangeHandler = (e) => {
+        e.preventDefault();
+        setSelectedFile(e.target.files[0]);
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        EmployeeService.upload(formData)
+            .then(res => {
+                    console.log(res.data);
+                    alert("File uploaded successfully.")
+            })
+    };
+
+    const saveFile = (e) => {
+        const data = new FormData()
+        data.append('file', this.state.selectedFile)
+        console.warn(this.state.selectedFile);
+        let url = "http://code.kupava.by:8080/upload";
+
+        axios.post(url, data, { // receive two parameter endpoint url ,form data 
+        })
+            .then(res => { // then print response status
+                console.warn(res);
+            })
+    }
+
     useEffect(() => {
+
+        setDoramaImg(id)
 
         // EmployeeService.getSkladById(id).then((response) => {
         //     setInvet(response.data.invet)
@@ -40,9 +101,9 @@ function AddDoramaComponent() {
     }, []);
 
     const title = () => {
-        if(id) {
+        if (id) {
             return <h2 className='text-center'> Update Dorama</h2>
-        }else{
+        } else {
             return <h2 className='text-center'> Add Dorama</h2>
         }
     }
@@ -106,9 +167,14 @@ function AddDoramaComponent() {
                                     ></input>
                                 </div>
 
+
                                 <button className='btn btn-success' onClick={(e) => saveDorama(e)}>Sumbit</button>
                                 <Link to='/dorama' className='btn btn-danger'> Cancel </Link>
                             </from>
+
+                            <input type="file" name="file" onChange={handleFileSelect} />
+                            <button className='btn btn-success' onClick={(e) => handleSubmit(e)}>upload</button>
+
                         </div>
                     </div>
                 </div>
