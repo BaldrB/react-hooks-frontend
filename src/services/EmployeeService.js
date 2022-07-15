@@ -75,7 +75,10 @@ class EmployeeService{
     }
 
     createDorama(dorama){
-        return axios.post(DORAMA_BASE_REST_API_URL, dorama)
+        return axios.post(DORAMA_BASE_REST_API_URL, dorama).then(res => {
+            let data = JSON.parse(res.request.response);
+            alert(data['message']);
+        })
     }
 
     createTagdorama(tagdorama){
@@ -88,6 +91,10 @@ class EmployeeService{
 
     upload(data) {
         return axios.post(UPLOAD_FILES, data);
+    }
+
+    deleteDorama(doramaId){
+        return axios.delete(DORAMA_BASE_REST_API_URL + '/' + doramaId);
     }
 }
 

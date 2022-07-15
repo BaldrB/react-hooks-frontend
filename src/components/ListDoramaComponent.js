@@ -20,6 +20,14 @@ const ListDoramaComponent = () => {
         getAllDoramas();
     }, [getAllDoramas]);
 
+    const deleteDorama = (doramaId) => {
+        EmployeeService.deleteDorama(doramaId).then((response) => {
+            getAllDoramas();
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
     return (
         <div className='container'>
             <h2 className='text-center'> List Sklad </h2>
@@ -37,7 +45,7 @@ const ListDoramaComponent = () => {
                                 <tr key={sklad.id}>
                                     <td> {sklad.doramaName} </td>
                                     <td> {sklad.doramaDescript} </td>
-                                    <td> <img src={sklad.doramaImg}></img> </td>
+                                    <td> <img src={sklad.doramaImg} height="255" alt="lorem"></img> </td>
                                     <td> {sklad.doramaCity} </td>
                                     <td>
                                      {sklad.doramaTag.map(emp => {
@@ -46,7 +54,8 @@ const ListDoramaComponent = () => {
                                         )
                                     })}
                                     </td>
-                                    <td><img src={require('../Images/devstvennica_u_ri_568493.jpg').default} /></td>
+                                    <id><button className='btn btn-danger' onClick={() => deleteDorama(sklad.id)}
+                                    style = {{marginLeft:"10px"}}> Delete </button></id>
                                 </tr>
                         )
                     }

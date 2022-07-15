@@ -35,7 +35,7 @@ function AddDoramaComponent() {
         const formData = new FormData();
         formData.append("file", selectedFile);
         //console.log(selectedFile)
-        axios.post('http://code.kupava.by:8080/upload', formData, { // receive two parameter endpoint url ,form data 
+        axios.post('http://doramajavareact.herokuapp.com/upload', formData, { // receive two parameter endpoint url ,form data 
         })
         .then(res => { // then print response status
             console.warn(res);
